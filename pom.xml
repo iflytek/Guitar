@@ -1,0 +1,116 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.iflytek.guitar</groupId>
+    <artifactId>guitar-parent</artifactId>
+    <version>0.4-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>IFLYTEK OpenSource Distributed Multi-dimensional BI Analysis Engine</name>
+
+    <modules>
+        <module>guitar-core</module>
+        <module>guitar-export</module>
+        <module>guitar-share</module>
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <java.version>1.8</java.version>
+
+        <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+        <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+        <maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
+
+        <log4j.version>1.2.17</log4j.version>
+
+        <hadoop.version>2.6.0</hadoop.version>
+        <hbase.version>1.2.0</hbase.version>
+        <!--<phoenix.version>4.13.1</phoenix.version>-->
+        <zookeeper.version>3.4.5</zookeeper.version>
+        <avro.version>1.7.6</avro.version>
+        <orc.version>1.4.1</orc.version>
+        <parquet.version>1.9.0</parquet.version>
+        <!--<cdh.version>5.13.1</cdh.version>-->
+        <cdh.version>5.5.0</cdh.version>
+
+        <mysql-connector.version>6.0.6</mysql-connector.version>
+
+        <groovy.version>2.4.13</groovy.version>
+
+        <fastjson.version>1.2.42</fastjson.version>
+
+        <jcommon.version>1.0.24</jcommon.version>
+        <htrace.version>4.0.0</htrace.version>
+        <antlr-runtime.version>3.5.2</antlr-runtime.version>
+        <joda-time.version>2.9.9</joda-time.version>
+        <metrics-core.version>2.2.0</metrics-core.version>
+        <tephra.version>0.7.1</tephra.version>
+        <twill.version>0.12.0</twill.version>
+    </properties>
+
+	<repositories>
+		<repository>
+			<id>cloudera</id>
+			<url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
+		</repository>
+    </repositories>
+	
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.2</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReportConfig ver="0001">
+    <input>
+        <path>test_data/txt/%Y-%M-%D/%H/</path>
+        <data_type>struct</data_type>
+        <file_type>text</file_type>
+        <check>all</check>
+    </input>
+
+    <output>
+        <type>mysql</type>
+		<param ip="localhost" port="3306" user="root" passwd="123456" dbName="test"/>
+    </output>
+	
+	<!--<config type="HDFS" id="filterBrowser">-->
+        <!--<path>guitar/report_def/public/filterBrowser</path>-->
+    <!--</config>-->
+
+    <report>
+        <dimension>
+			<province />
+			<browser />
+		</dimension>
+		
+		<target>
+			<sess_times type="SUM" />
+			<users type="UV_HYPERLOGLOGPLUS" />
+		</target>
+
+        <minFreq>Hourly</minFreq>
+        <priority>10.3</priority>
+
+        <cuboid>
+            <!--ignore:不参与维度聚合的维度，以逗号分割 -->
+            <!--<ignore>province</ignore>-->
+
+            <!-- bind:绑定维度，即要不都为ALL，要不都不为ALL，若其中有一个字段为ignore属性，则bind字段都为ignore -->
+            <!--<bind>province,browser</bind>-->
+
+            <!-- filter: 某些维度不是所有值都参与聚合，不参与集合的值就需要在聚合是过滤掉 -->
+            <!-- dimension: 需要过滤的维度，如果需要和另外一个维度组合才能确定是否过滤，则关联维度以【维度名.】方式作为过滤维度的前缀
+                            当前只支持一个关联维度，且关联维度被强制标记为ignore属性！-->
+            <!-- type:过滤规则类型，包括白名单（WList）和黑名单（BList）两种情况 -->
+            <!-- source: 数据源，包括list和config两种情况，list直接以文本列表形式提供，以split进行分割
+                        config类型则外部数据源读取列表，即ReportConfig.config标签中定义的数据源
+                        注意，如果dimension中包含关联维度，则数据源必须有两列，且以'\t'分隔-->
+            <!-- split: 可省略，默认为","-->
+            <!-- value: 如果source为list，则value值为具体值的列表，并以split隔开，如果存在关联字段，则每个值以\t分割
+                        且顺序与dimension字段中定义一致；如果source值为config，则value值为ReportConfig.config标签中定义的数据源id-->
+            <!--filter dimension="province.browser" type="WList" source="list" split=",">台湾	UC浏览器,香港	360安全浏览器</filter-->
+            <!--<filter dimension="browser" type="BList" source="config">filterBrowser</filter>-->
+        </cuboid>
+
+    </report>
+
+</ReportConfig>
