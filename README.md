@@ -76,7 +76,7 @@ Guitar是一款简单、高效的分布式多维BI报表分析引擎。主要用
   同理运行短语搜索信息天报表。
 
 ## License
-Guitar是在Apache 2.0许可下发布的。
+Guitar是在Apache 2.0开源协议许可下发布的。
 
     Copyright 1999-2018 IFLYTEK CO.,LTD.
     
