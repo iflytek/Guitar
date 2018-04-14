@@ -1,5 +1,5 @@
 # Guitar
-Guitar来源于科大讯飞消费者BG平台研发部大数据分析团队，是讯飞首个公司级开源软件项目。<br>
+Guitar来源于科大讯飞消费者BG平台研发部语音云数据分析团队，是讯飞首个公司级开源软件项目。<br>
 Guitar是一款简单、高效的分布式多维BI报表分析引擎。主要用于在Hadoop环境下，基于MapReduce计算引擎，结合业界流行的大数据统计分析技术和OLAP cube思想，以Groovy脚本及XML配置方式，简单、灵活、高效地出具从原始日志到多维报表分析结果。
 
 ## Guitar的特点
@@ -11,7 +11,7 @@ Guitar是一款简单、高效的分布式多维BI报表分析引擎。主要用
  ![](https://github.com/iflytek/Guitar/blob/master/logo.jpg) 
 
 ## TestCases
-项目中test_data文件夹提供了一份改自于搜狗实验室公开的测试数据集[用户查询日志](http://www.sougou.com/labs/resource/q,php)，分别是文本格式和parquet格式。<br>
+项目中test_data文件夹提供了一份改自于搜狗实验室公开的测试数据集[用户查询日志](http://www.sogou.com/labs/resource/q.php)，分别是文本格式和parquet格式。<br>
 项目中guitar文件夹提供了两份应用测试数据集出具的样例报表，其中guitar\report_def\test\AreaBrowserInfo是浏览器地域分布信息小时报表，guitar\report_def\test\WordsQueryInfo是短语搜索信息天报表。
 
 ## Quick Start
