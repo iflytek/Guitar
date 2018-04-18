@@ -75,6 +75,9 @@ Guitar是一款简单、高效的分布式多维BI报表分析引擎。主要用
   在Hadoop客户端执行hadoop jar guitar-core-0.4-SNAPSHOT-jar-with-dependencies.jar com.iflytek.guitar.core.main.ReportMain test.AreaBrowserInfo 2018-01-12T04:00Z Hourly true -Dmapreduce.job.queuename=default即可运行浏览器地域分布信息小时报表。<br>
   同理运行短语搜索信息天报表。
 
+## 社区支持
+QQ群：769340417  欢迎大家参与项目使用及贡献
+
 ## License
 Guitar是在Apache 2.0开源协议许可下发布的。
 
