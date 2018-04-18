@@ -8,7 +8,7 @@ Guitar是一款简单、高效的分布式多维BI报表分析引擎。主要用
 （3）程序运行高效：利用MOLAP cube思想，结合Bitmap、HyperLogLog等uv算法，配以自研发的高性能avro数据中间件，高效计算各项维度组合下的各项指标；<br>
 （4）适应场景丰富：支持多种格式数据源和多种数据库表展现，提供8种计算指标，8种时间粒度，且接口简单、极易扩展，满足多数常见的大数据BI报表分析需要。
 
- ![](https://github.com/iflytek/Guitar/blob/master/logo.jpg) 
+ ![](https://github.com/iflytek/Guitar/blob/master/img/logo.jpg) 
 
 ## Test Cases
 项目中test_data文件夹提供了一份改自于搜狗实验室公开的测试数据集[用户查询日志](http://www.sogou.com/labs/resource/q.php)，分别是文本格式和parquet格式。<br>
