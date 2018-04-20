@@ -77,7 +77,7 @@ Guitar是一款简单、高效的分布式多维BI报表分析引擎。主要用
 
 ## 社区支持
 QQ群：769340417  欢迎大家参与项目使用及贡献<br>
- ![](https://github.com/iflytek/Guitar/blob/master/img/Guitar项目开发与支持（769340417）.png) 
+ ![](https://github.com/iflytek/Guitar/blob/master/img/Guitar develop and support (769340417).png) 
 
 ## License
 Guitar是在Apache 2.0开源协议许可下发布的。
