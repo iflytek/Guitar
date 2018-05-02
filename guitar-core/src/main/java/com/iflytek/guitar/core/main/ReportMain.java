@@ -19,6 +19,7 @@ public class ReportMain extends OozieMain {
     @Override
     public int run(String[] args) throws Exception {
         boolean is_todb = true;
+        boolean is_strictDataInsert = false;
         if (args.length > 4) {
             for (int idx = 4; idx < args.length; idx++) {
                 if ("-is_todb".equalsIgnoreCase(args[idx])) {
@@ -26,6 +27,11 @@ public class ReportMain extends OozieMain {
                         throw new IllegalArgumentException("is to db not specified in -is_todb");
                     }
                     is_todb = Boolean.valueOf(args[idx]);
+                } else if ("-is_strictDataInsert".equalsIgnoreCase(args[idx])) {
+                    if (++idx == args.length) {
+                        throw new IllegalArgumentException("is_strict data insert inspection not specified in -is_strictDataInsert");
+                    }
+                    is_strictDataInsert = Boolean.valueOf(args[idx]);
                 }
             }
         }
@@ -36,6 +42,9 @@ public class ReportMain extends OozieMain {
 //        getConf().set("mapreduce.framework.name", "local");
 
         String storeType = this.getConf().get(ConstantConf.OUTPUT_STORE_TYPE, "hdfs");
+
+        // 是否严格数据插入检查，若是，则只要有一条数据有问题或数据库服务问题则立即抛出异常
+        this.getConf().setBoolean("is_strictDataInsert", is_strictDataInsert);
 
         // 加载用户配置的报表算法
         RunAlgs runAlgs = new RunAlgs(args, this.getConf());

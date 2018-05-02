@@ -101,7 +101,7 @@ public class OutputServer extends OozieMain implements Runnable {
                         // 入库
                         Export2DB export2DB = new Export2DB();
                         try {
-                            iRet = export2DB.export(dbConn, tableName, inputDir, timeValue, timestampName, mapAlaisNames);
+                            iRet = export2DB.export(dbConn, tableName, inputDir, timeValue, timestampName, mapAlaisNames, conf);
                         } catch (Exception e) {
                             iRet = Constants.RET_INT_ERROR;
                             e.printStackTrace();

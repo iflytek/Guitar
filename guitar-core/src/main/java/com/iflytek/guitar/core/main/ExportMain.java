@@ -75,10 +75,12 @@ public class ExportMain {
 
     public static void main(String[] args) throws Exception {
         if (null == args || args.length < 3) {
-            throw new Exception("args error: <algs> <start_time> <freq> \n"
+            throw new Exception("args error: <algs> <start_time> <freq> <-is_strictDataInsert b>\n"
                     + "algs: describe what reports need to run .\n"
                     + "start_time: describe the timestamp info for all reports.\n"
-                    + "freq: describe the running period of reports.\n");
+                    + "freq: describe the running period of reports.\n"
+                    + "-is_strictDataInsert b: describe is_strict data insert inspection, default false.\n"
+            );
         }
 
         List<String> erralg = new ArrayList<String>();
@@ -87,6 +89,21 @@ public class ExportMain {
 
         String runtime_user = UserGroupInformation.getCurrentUser().getUserName();
         LOG.info("Current user's full name is : " + runtime_user);
+
+        boolean is_strictDataInsert = false;
+        if (args.length > 3) {
+            for (int idx = 3; idx < args.length; idx++) {
+                if ("-is_strictDataInsert".equalsIgnoreCase(args[idx])) {
+                    if (++idx == args.length) {
+                        throw new IllegalArgumentException("is_strict data insert inspection not specified in -is_strictDataInsert");
+                    }
+                    is_strictDataInsert = Boolean.valueOf(args[idx]);
+                }
+            }
+        }
+
+        // 是否严格数据插入检查，若是，则只要有一条数据有问题或数据库服务问题则立即抛出异常
+        conf.setBoolean("is_strictDataInsert", is_strictDataInsert);
 
         String algs_s = args[0];
         String[] algs_list = algs_s.split(",");
@@ -148,7 +165,7 @@ public class ExportMain {
                 // 入库
                 Export2DB export2DB = new Export2DB();
                 try {
-                    iRet = export2DB.export(dbConn, tableName, inputDir, timeValue, timestampName, mapAlaisNames);
+                    iRet = export2DB.export(dbConn, tableName, inputDir, timeValue, timestampName, mapAlaisNames, conf);
                 } catch (Exception e) {
                     iRet = Constants.RET_INT_ERROR;
                     e.printStackTrace();

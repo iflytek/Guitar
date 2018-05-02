@@ -227,7 +227,7 @@ public class Export2DB
 	 * 5  timestampName
 	 * 6  fieldNames
 	 * */
-	public int export(DBConnect dbConn, String tableName, String inputDir, Date timeValue, String tsName, Map<String, Map<String, String>> mapAlaisNames) throws Exception
+	public int export(DBConnect dbConn, String tableName, String inputDir, Date timeValue, String tsName, Map<String, Map<String, String>> mapAlaisNames, Configuration conf) throws Exception
 	{
 		if(null == dbConn || null == tableName || null == inputDir || null == timeValue)
 		{
@@ -250,7 +250,7 @@ public class Export2DB
 		}
 
 		/* 读取入库文件 */
-		Configuration conf = new Configuration();
+//		Configuration conf = new Configuration();
 		FileSystem fs = FileSystem.get(conf);
 		Path inputPath = new Path(inputDir);
 		if (!fs.exists(inputPath))
@@ -391,6 +391,9 @@ public class Export2DB
 				{
 				    lCommitNum = 0L;
 				    int dbExc = dbConn.exceModel();
+					if (Constants.RET_INT_ERROR == dbExc && conf.getBoolean("is_strictDataInsert", false)) {
+						return Constants.RET_INT_ERROR;
+					}
 				    lInsertSuccNum += ( (dbExc < 0 ) ? 0 : dbExc );
 				}
 				if( lReadNum % 10000 == 0 )
