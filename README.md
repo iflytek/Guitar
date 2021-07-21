@@ -18,6 +18,7 @@ Guitar是一款简单、高效的分布式多维BI报表分析引擎。主要用
 （1）下载Guitar项目至本地目录，导入IDE中（推荐使用IntelliJ IDEA，若使用Eclipse可能需要将项目中的test_data和guitar文件夹移动到guitar-core目录下）。<br>
 （2）在可连接的mysql服务器的test库中新建两张表，建表语句如下：
 
+```sql
     CREATE TABLE `AreaBrowserInfoHourly`  (
       `area` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'EMPTY' COMMENT '地域',
       `browser` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'EMPTY' COMMENT '浏览器品牌',
@@ -27,7 +28,8 @@ Guitar是一款简单、高效的分布式多维BI报表分析引擎。主要用
       PRIMARY KEY (`area`, `browser`, `timestamp`) USING BTREE,
       UNIQUE INDEX `basic_info_key`(`timestamp`, `area`, `browser`) USING BTREE
     ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
-
+```
+```sql
     CREATE TABLE `WordsQueryInfoDaily`  (
       `words` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'EMPTY' COMMENT '搜索词语',
       `sess_times` bigint(20) NULL DEFAULT 0 COMMENT '使用次数',
@@ -37,6 +39,7 @@ Guitar是一款简单、高效的分布式多维BI报表分析引擎。主要用
       PRIMARY KEY (`words`, `timestamp`) USING BTREE,
       UNIQUE INDEX `basic_info_key`(`timestamp`, `words`) USING BTREE
     ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+```
 （3）将两表的连接信息写入guitar\report_def\test\AreaBrowserInfo\report.def.xml和guitar\report_def\test\WordsQueryInfo\report.def.xml中对应位置。<br>
 注：样例默认mysql服务器ip="localhost"，端口port="3306"，用户名user="root"，密码passwd="123456"，数据库dbName="test"。<br>
 （4）Guitar支持本地local模式直接运行和Hadoop集群jar包运行。<br>
@@ -47,7 +50,7 @@ Guitar是一款简单、高效的分布式多维BI报表分析引擎。主要用
 以浏览器地域分布信息小时报表为例：该报表功能是读取guitar\test_data\txt\2018-01-12\04\SogouQ_sample_rev.txt样例日志，分析各个浏览器在各个地域下的使用次数和用户数。<br>
 报表结果中地域area字段为ALL的情况，代表各个浏览器在所有地域情况下的使用次数和用户数，而浏览器browser字段为ALL的情况，则代表各地域在不分浏览器情况下的使用次数和用户数。<br>
 换个SQL说法，即：
-
+```sql
     SELECT
     	browser,
     	sess_times
@@ -56,8 +59,9 @@ Guitar是一款简单、高效的分布式多维BI报表分析引擎。主要用
     WHERE
     	`timestamp` = UNIX_TIMESTAMP( '2018-01-12 04:00:00' ) 
     	AND area = 'ALL';
+ ```
   等于
-  
+  ```sql
      SELECT
     	browser,
     	SUM(sess_times)
@@ -67,7 +71,7 @@ Guitar是一款简单、高效的分布式多维BI报表分析引擎。主要用
     	`timestamp` = UNIX_TIMESTAMP( '2018-01-12 04:00:00' ) 
     	AND area <> 'ALL'
     GROUP BY browser;
-       
+``` 
 （6）在Hadoop集群上运行<br>
   将项目中的test_data和guitar文件夹上传到运行账户的目录下，如：hadoop fs -put test_data /user/xxx；<br>
   进入项目主目录，执行mvn clean install -Dmaven.test.skip=true；<br>
